@@ -51,7 +51,7 @@
 
 <script>
     export default {
-        name: "Transfer",
+        name: "c-transfer",
         data() {
             return {
                 form: {

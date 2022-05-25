@@ -33,7 +33,7 @@
                        type="primary" size="mini"
                        style="margin-top:2px;float: right"
                        icon="el-icon-refresh"
-                       @click="">
+                       >
                 刷新
             </el-button>
             <el-pagination
@@ -87,7 +87,7 @@
                 }
             },
 
-            cellStyle({row, column, rowIndex, columnIndex}) {
+            cellStyle() {
                     return "padding:2px";
             },
         },

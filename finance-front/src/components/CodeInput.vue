@@ -15,7 +15,7 @@
 <script>
 
     export default {
-        name: "CodeInput",
+        name: "c-codeInput",
         data() {
             return {
                 state: '',
@@ -65,7 +65,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="less">
     .wide-dropdown {
         width: 600px !important;
     }

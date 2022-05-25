@@ -18,7 +18,7 @@
     import PosiList from "../components/PosiList";
 
     export default {
-        name: 'dashboard',
+        name: 'c-dashboard',
         components: {PosiList},
     };
 </script>

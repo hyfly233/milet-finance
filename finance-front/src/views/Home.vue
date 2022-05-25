@@ -33,6 +33,7 @@ import vSidebar from '../components/Sidebar.vue';
 
 
 export default {
+  name: 'view-home',
   data() {
     return {
       tagsList: [],

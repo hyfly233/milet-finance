@@ -123,7 +123,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .orderBook {
         border: 1px solid #909399;;
         margin-left: 5%;

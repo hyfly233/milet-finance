@@ -32,7 +32,7 @@
 
 
     export default {
-        name: "Buy",
+        name: "c-buy",
         components: {
             OrderWidget,
             OrderBook,

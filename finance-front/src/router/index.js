@@ -6,7 +6,77 @@ const routes = [
         name: 'Login',
         component: () => import('../views/Login.vue'),
     },
+    {
+        path: '/',
+        component: () => import( '../views/Home.vue'),
+        children: [
+            // {
+            //     path: '/dashboard',
+            //     component: () => import('../components/HelloWorld.vue'),
+            // },
+            {
+                path: '/dashboard',
+                component: () => import('../views/Dashboard.vue'),
+                meta: {requireAuth: false}
+            },
+            {
+                //修改密码
+                path: '/pwdsetting',
+                component: () => import( '../views/PwdSetting.vue'),
+                meta: {requireAuth: false}
+            },
+            {
+                //银证转账
+                path: '/transfer',
+                component: () => import( '../views/Transfer.vue'),
+                meta: {requireAuth: false}
+            },
+            {
+                //银证转账查询
+                path: '/transferquery',
+                component: () => import( '../views/TransferQuery.vue'),
+                meta: {requireAuth: false}
+            },
 
+            {
+                //当日委托
+                path: '/orderquery',
+                component: () => import( '../views/OrderQuery.vue'),
+                meta: {requireAuth: false}
+            },
+            {
+                //当日成交
+                path: '/tradequery',
+                component: () => import( '../views/TradeQuery.vue'),
+                meta: {requireAuth: false}
+            },
+            {
+                //历史委托
+                path: '/hisorderquery',
+                component: () => import( '../views/HisOrderQuery.vue'),
+                meta: {requireAuth: false}
+            },
+            {
+                //历史成交
+                path: '/histradequery',
+                component: () => import( '../views/HisTradeQuery.vue'),
+                meta: {requireAuth: false}
+            },
+
+            {
+                //委买
+                path: '/buy',
+                component: () => import( '../views/Buy.vue'),
+                meta: {requireAuth: false}
+            },
+            {
+                //委卖
+                path: '/sell',
+                component: () => import('../views/Sell.vue'),
+                meta: {requireAuth: false}
+            },
+        ]
+    },
     {
         path: '/403',
         component: () => import('../views/403.vue'),
