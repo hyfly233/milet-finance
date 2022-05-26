@@ -3,9 +3,9 @@ import App from './App.vue'
 import router from './router'
 import mitt from "mitt";
 import store from './store'
-import elementUI from 'element-ui'
 import moment from 'moment'
-import 'element-ui/lib/theme-chalk/index.css'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 
 const app = createApp(App);
@@ -13,7 +13,7 @@ const app = createApp(App);
 app
     .use(router)
     .use(store)
-    .use(elementUI)
+    .use(ElementPlus)
     .use(moment)
     .mount('#app');
 

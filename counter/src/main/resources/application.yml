@@ -1,0 +1,23 @@
+server:
+  port: 23330
+spring:
+  datasource:
+    url: jdbc:sqlite:E:/workspace/data.db
+    driverClassName: org.sqlite.JDBC
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    jdbc-type-for-null: 'null'
+
+cacheexpire:
+  captcha: 100
+  account: 3600
+  order: 3600
+
+counter:
+  dataCenterId: 0
+  workerId: 0
