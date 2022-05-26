@@ -1,13 +1,10 @@
 import {reqRealEnd, reqRealEndAsync} from './axiosCommon'
-
 import {config} from './frontConfig'
-
 import router from '../router'
 
 //请求验证码
 export const queryCaptcha = (callback) => {
-    return reqRealEndAsync("post", config.real_domain,
-        "/login/captcha", {}, callback);
+    return reqRealEndAsync("post", config.real_domain, "/login/captcha", {}, callback);
 };
 
 // 登录
@@ -31,13 +28,11 @@ export const logout = () => {
 
     //通知柜台
     reqRealEnd("post", config.real_domain, '/login/logout', {});
-
 }
 
 
 export const pwdUpdate = (params, callback) => {
-    return reqRealEndAsync("post", config.real_domain,
-        '/login/pwdupdate', params, callback);
+    return reqRealEndAsync("post", config.real_domain, '/login/pwdupdate', params, callback);
 }
 
 

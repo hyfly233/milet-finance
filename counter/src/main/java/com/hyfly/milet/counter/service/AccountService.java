@@ -1,6 +1,6 @@
 package com.hyfly.milet.counter.service;
 
-import com.hyfly.milet.counter.modle.res.Account;
+import com.hyfly.milet.counter.module.Account;
 
 public interface AccountService {
     /**

@@ -1,4 +1,4 @@
-package com.hyfly.milet.counter.modle.res;
+package com.hyfly.milet.counter.enums;
 
 import lombok.Getter;
 

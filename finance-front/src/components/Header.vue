@@ -12,7 +12,7 @@
     </div>
 
     <!-- 第三步 LOGO -->
-    <div class="logo">Gudy证券交易系统</div>
+    <div class="logo">证券交易系统</div>
 
     <!-- 第四步  右侧下拉菜单-->
     <div class="header-right">
@@ -31,7 +31,10 @@
 
   </div>
 </template>
+
 <script>
+import {logout} from '@/api/loginApi'
+
 export default {
   name: 'c-header',
   data() {
@@ -51,8 +54,7 @@ export default {
     // 用户名下拉菜单选择事件
     handleCommand(command) {
       if (command == 'loginout') {
-        //TODO logout
-        // logout();
+        logout();
       }
     },
     // 侧边栏折叠

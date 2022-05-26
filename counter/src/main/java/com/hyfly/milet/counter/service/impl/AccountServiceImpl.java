@@ -2,18 +2,21 @@ package com.hyfly.milet.counter.service.impl;
 
 import com.hyfly.milet.counter.cache.RedisStringCache;
 import com.hyfly.milet.counter.enums.CacheType;
-import com.hyfly.milet.counter.modle.res.Account;
+import com.hyfly.milet.counter.module.Account;
 import com.hyfly.milet.counter.service.AccountService;
 import com.hyfly.milet.counter.util.DbUtil;
 import com.hyfly.milet.counter.util.JsonUtil;
 import com.hyfly.milet.counter.util.TimeformatUtil;
 import com.hyfly.milet.counter.util.Uuid;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Component
+/**
+ * @author hyfly
+ */
+@Service
 public class AccountServiceImpl implements AccountService {
     @Override
     public Account login(long uid, String password, String captcha, String captchaId) throws Exception {
@@ -23,8 +26,7 @@ public class AccountServiceImpl implements AccountService {
             return null;
         }
         //2.校验缓存验证码
-        String captchaCache =
-                RedisStringCache.get(captchaId, CacheType.CAPTCHA);
+        String captchaCache = RedisStringCache.get(captchaId, CacheType.CAPTCHA);
         if (StringUtils.isEmpty(captchaCache)) {
             return null;
         } else if (!StringUtils.equalsIgnoreCase(captcha, captchaCache)) {
@@ -40,10 +42,7 @@ public class AccountServiceImpl implements AccountService {
             account.setToken(String.valueOf(Uuid.getInstance().getUUID()));
 
             //存入缓存
-            RedisStringCache.cache(String.valueOf(
-                    account.getToken()), JsonUtil.toJson(account),
-                    CacheType.ACCOUNT
-            );
+            RedisStringCache.cache(String.valueOf(account.getToken()), JsonUtil.toJson(account), CacheType.ACCOUNT);
 
             //更新登录时间
             Date date = new Date();

@@ -59,12 +59,11 @@ public class Captcha {
         this.code = randomStr(codeCount);
         int fontWidth = width / codeCount;
         int fontHeight = height - 5;
-        for(int i = 0;i < codeCount;i++){
-            String str = this.code.substring(i,i+1);
-            g.setColor(getRandColor(1,255));
-            g.drawString(str,i * fontWidth + 3,fontHeight - 3);
+        for (int i = 0; i < codeCount; i++) {
+            String str = this.code.substring(i, i + 1);
+            g.setColor(getRandColor(1, 255));
+            g.drawString(str, i * fontWidth + 3, fontHeight - 3);
         }
-
 
 
     }
@@ -106,13 +105,11 @@ public class Captcha {
 
     public String getBase64ByteStr() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(buffImg,"png",baos);
+        ImageIO.write(buffImg, "png", baos);
 
         String s = Base64.getEncoder().encodeToString(baos.toByteArray());
-        s = s.replaceAll("\n","")
-                .replaceAll("\r","");
+        s = s.replace("\n", "").replace("\r", "");
 
         return "data:image/jpg;base64," + s;
-
     }
 }

@@ -15,9 +15,10 @@ mybatis:
 
 cacheexpire:
   captcha: 100
-  account: 3600
-  order: 3600
+  account: 36000
+  order: 36000
 
 counter:
+  id: 0
   dataCenterId: 0
   workerId: 0

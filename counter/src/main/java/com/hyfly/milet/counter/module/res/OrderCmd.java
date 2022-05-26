@@ -1,5 +1,8 @@
-package com.hyfly.milet.counter.modle.res;
+package com.hyfly.milet.counter.module.res;
 
+import com.hyfly.milet.counter.enums.CmdType;
+import com.hyfly.milet.counter.enums.OrderDirection;
+import com.hyfly.milet.counter.enums.OrderType;
 import lombok.Builder;
 import lombok.ToString;
 

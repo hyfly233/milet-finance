@@ -13,7 +13,7 @@
           <el-form-item prop="captcha">
             <el-input v-model="ruleForm.captcha" type="text"
                       placeholder="验证码"
-                      @keyup.enter.native="submitForm('ruleForm')"
+                      @keyup.enter="submitForm('ruleForm')"
             />
           </el-form-item>
         </el-col>
@@ -41,6 +41,7 @@ import {queryBalance, queryOrder, queryPosi, queryTrade} from '@/api/orderApi';
 
 export default {
   name: "view-login",
+  emits: [],
   data() {
     return {
       //1.提交表单

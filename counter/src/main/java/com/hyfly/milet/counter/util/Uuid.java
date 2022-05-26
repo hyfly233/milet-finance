@@ -2,7 +2,7 @@ package com.hyfly.milet.counter.util;
 
 public class Uuid {
 
-    private static Uuid ourInstance = new Uuid();
+    private static final Uuid ourInstance = new Uuid();
 
     public static Uuid getInstance() {
         return ourInstance;
@@ -20,6 +20,4 @@ public class Uuid {
     public long getUUID() {
         return idWorker.nextId();
     }
-
-
 }

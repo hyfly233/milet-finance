@@ -2,9 +2,9 @@ package com.hyfly.milet.counter.controller;
 
 import com.hyfly.milet.counter.cache.RedisStringCache;
 import com.hyfly.milet.counter.enums.CacheType;
-import com.hyfly.milet.counter.modle.res.Account;
-import com.hyfly.milet.counter.modle.res.CaptchaRes;
-import com.hyfly.milet.counter.modle.res.CounterRes;
+import com.hyfly.milet.counter.module.Account;
+import com.hyfly.milet.counter.module.res.CaptchaRes;
+import com.hyfly.milet.counter.module.res.CounterRes;
 import com.hyfly.milet.counter.service.AccountService;
 import com.hyfly.milet.counter.util.Captcha;
 import com.hyfly.milet.counter.util.Uuid;
@@ -24,13 +24,11 @@ public class LoginController {
     @RequestMapping("/captcha")
     public CounterRes captcha() throws Exception {
         //1.生成验证码 120 40 4个字符 噪点+线条
-        Captcha captcha = new Captcha(120, 40,
-                4, 10);
+        Captcha captcha = new Captcha(120, 40, 4, 10);
 
         //2.将验证码<ID,验证码数值>放入缓存
         String uuid = String.valueOf(Uuid.getInstance().getUUID());
-        RedisStringCache.cache(uuid, captcha.getCode(),
-                CacheType.CAPTCHA);
+        RedisStringCache.cache(uuid, captcha.getCode(), CacheType.CAPTCHA);
 
         //3.使用base64编码图片，并返回给前台
         //uuid,base64
@@ -40,12 +38,10 @@ public class LoginController {
 
     @RequestMapping("/userlogin")
     public CounterRes login(@RequestParam long uid, @RequestParam String password, @RequestParam String captcha, @RequestParam String captchaId) throws Exception {
-        Account account = accountService.login(uid, password,
-                captcha, captchaId);
+        Account account = accountService.login(uid, password, captcha, captchaId);
 
         if (account == null) {
-            return new CounterRes(CounterRes.FAIL,
-                    "用户名密码/验证码错误，登录失败", null);
+            return new CounterRes(CounterRes.FAIL, "用户名密码/验证码错误，登录失败", null);
         } else {
             return new CounterRes(account);
         }
