@@ -35,49 +35,81 @@
   </div>
 </template>
 
-<script>
 
-import CodeInput from "./CodeInput";
+<script>
+import CodeInput from './CodeInput'
+import {sendOrder} from '@/api/orderApi'
+import {constants} from '@/api/constants'
+import * as moment from 'moment'
 
 export default {
   name: "OrderWidget",
-  components: {CodeInput},
   data() {
     return {
       code: '',
       name: '',
-      price: undefined,
       affordCount: undefined,
+      price: undefined,
       volume: undefined,
     }
   },
-  props: {
-    direction: {type: Number, required: true},
+  components: {
+    CodeInput
+  },
+  created() {
+    this.$bus.on("codeinput-selected", this.updateSlectedCode);
+  },
+  beforeUnmount() {
+    this.$bus.off("codeinput-selected", this.updateSlectedCode);
   },
   methods: {
-    updateSelectCode(item) {
+    handlePrice() {
+      if (this.direction === constants.SELL) {
+        let posiArr = this.$store.state.posiData;
+        for (let i = 0, len = posiArr.length; i < len; i++) {
+          if (posiArr[i].code == this.code) {
+            this.affordCount = posiArr[i].count;
+          }
+        }
+      } else {
+        //总资金/委托价格 向下取整
+        this.affordCount = parseInt(
+            (this.$store.state.balance / constants.MULTI_FACTOR)
+            / this.price
+        );
+      }
+    },
+    updateSlectedCode(item) {
       this.code = item.code;
       this.name = item.name;
       this.price = undefined;
       this.volume = undefined;
-      // if (this.direction === constants.SELL) {
-      //     let posiArr = this.$store.state.posiData;
-      //     for (let i = 0, len = posiArr.length; i < len; i++) {
-      //         if (posiArr[i].code == item.code) {
-      //             this.affordCount = posiArr[i].count;
-      //             break;
-      //         }
-      //     }
-      // }
     },
-
+    handleOrderRes(code, msg) {
+      if (code === 0) {
+        this.$message.success("委托送往交易所");
+      } else {
+        this.$message.error("委托失败:" + msg);
+      }
+    },
+    onOrder() {
+      sendOrder({
+            uid: sessionStorage.getItem("uid"),
+            type: constants.NEW_ORDER,
+            timestamp: moment.now(),
+            code: this.code,
+            direction: this.direction,
+            price: this.price * constants.MULTI_FACTOR,
+            volume: this.volume,
+            ordertype: constants.LIMIT
+          },
+          this.handleOrderRes
+      )
+    },
   },
-  created() {
-    this.$bus.on("codeinput-selected", this.updateSelectCode);
-  },
-  beforeUnmount() {
-    this.$bus.off("codeinput-selected", this.updateSelectCode);
-  },
+  props: {
+    direction: {types: Number, required: true}
+  }
 }
 </script>
 
