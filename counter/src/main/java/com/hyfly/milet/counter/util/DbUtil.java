@@ -7,10 +7,11 @@ import com.hyfly.milet.counter.cache.RedisStringCache;
 import com.hyfly.milet.counter.enums.CacheType;
 import com.hyfly.milet.counter.enums.OrderStatus;
 import com.hyfly.milet.counter.module.Account;
+import com.hyfly.milet.counter.module.MatchData;
 import com.hyfly.milet.counter.module.info.OrderInfo;
 import com.hyfly.milet.counter.module.info.PosiInfo;
 import com.hyfly.milet.counter.module.info.TradeInfo;
-import com.hyfly.milet.counter.module.res.*;
+import com.hyfly.milet.counter.module.res.OrderCmd;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,5 +178,91 @@ public class DbUtil {
     public static List<Map<String, Object>> queryAllSotckInfo() {
         return dbUtil.getSqlSessionTemplate()
                 .selectList("stockMapper.queryStock");
+    }
+
+    public static void minusPosi(long uid, int code, long volume, long price) {
+        addPosi(uid, code, -volume, price);
+    }
+
+    public static PosiInfo getPosi(long uid, int code) {
+        return dbUtil.getSqlSessionTemplate().selectOne("orderMapper.queryPosi",
+                ImmutableMap.of("UId", uid, "Code", code));
+    }
+
+    public static void addPosi(long uid, int code, long volume, long price) {
+        //持仓是否存在
+        PosiInfo posiInfo = getPosi(uid, code);
+        if (posiInfo == null) {
+            //新增一条持仓
+            insertPosi(uid, code, volume, price);
+        } else {
+            //修改持仓
+            posiInfo.setCount(posiInfo.getCount() + volume);
+            posiInfo.setCost(posiInfo.getCost() + price * volume);
+//            if(posiInfo.getCount() == 0){
+//                deletePosi(posi);
+//            }else {
+            updatePosi(posiInfo);
+//            }
+
+        }
+    }
+
+    private static void updatePosi(PosiInfo posiInfo) {
+        dbUtil.getSqlSessionTemplate().insert("orderMapper.updatePosi",
+                ImmutableMap.of("UId", posiInfo.getUid(),
+                        "Code", posiInfo.getCode(),
+                        "Count", posiInfo.getCount(),
+                        "Cost", posiInfo.getCost())
+        );
+    }
+
+    private static void insertPosi(long uid, int code, long volume, long price) {
+        dbUtil.getSqlSessionTemplate().insert("orderMapper.insertPosi",
+                ImmutableMap.of("UId", uid,
+                        "Code", code,
+                        "Count", volume,
+                        "Cost", volume * price)
+        );
+    }
+
+    public static void updateOrder(long uid, int oid, OrderStatus status) {
+        Map<String, Object> param = Maps.newHashMap();
+        param.put("Id", oid);
+        param.put("Status", status.getCode());
+        dbUtil.getSqlSessionTemplate().update("orderMapper.updateOrder", param);
+
+        RedisStringCache.remove(Long.toString(uid), CacheType.ORDER);
+    }
+
+
+    public static void saveTrade(int counterOId, MatchData md, OrderCmd orderCmd) {
+        if (orderCmd == null) {
+            return;
+        }
+        Map<String, Object> param = Maps.newHashMap();
+        param.put("Id", md.tid);
+        param.put("UId", orderCmd.uid);
+        param.put("Code", orderCmd.code);
+        param.put("Direction", orderCmd.direction.getDirection());
+        param.put("Price", md.price);
+        param.put("TCount", md.volume);
+        param.put("OId", counterOId);//高位为counterid)
+        param.put("Date", TimeformatUtil.yyyyMMdd(md.timestamp));
+        param.put("Time", TimeformatUtil.hhMMss(md.timestamp));
+        dbUtil.getSqlSessionTemplate().insert("orderMapper.saveTrade", param);
+
+        //更新缓存
+        RedisStringCache.remove(Long.toString(orderCmd.uid), CacheType.TRADE);
+
+    }
+
+    public static void minusBalance(long uid, long balance) {
+        addBalance(uid, -balance);
+    }
+
+    public static void addBalance(long uid, long balance) {
+        dbUtil.getSqlSessionTemplate().update("orderMapper.updateBalance",
+                ImmutableMap.of("UId", uid, "Balance", balance));
     }
 }
