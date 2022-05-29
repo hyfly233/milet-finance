@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
-import static thirdpart.bean.MsgConstants.COUNTER_NEW_ORDER;
-import static thirdpart.bean.MsgConstants.NORMAL;
+
 
 @Log4j2
 @Configuration
