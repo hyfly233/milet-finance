@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<gateway>
+    <!-- 网关ID -->
+    <id>23301</id>
+
+    <!-- 外网端口 -->
+    <recvPort>23301</recvPort>
+
+    <!-- 排队机抓取服务端口 -->
+    <!--    <fetchServPort>23300</fetchServPort>-->
+
+    <!-- 柜台连接 -->
+    <!--    <counterList>-->
+    <!--        <counter id="23300" conn="127.0.0.1:23300" limiter="50"/>-->
+    <!--    </counterList>-->
+
+    <!-- 数据库连接 -->
+    <!--    <db url="jdbc:"/>-->
+</gateway>

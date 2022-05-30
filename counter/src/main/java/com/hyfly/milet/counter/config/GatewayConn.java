@@ -1,13 +1,15 @@
 package com.hyfly.milet.counter.config;
 
+import com.hyfly.milet.counter.module.CommonMsg;
+import com.hyfly.milet.counter.module.MsgConstants;
 import com.hyfly.milet.counter.module.res.OrderCmd;
 import com.hyfly.milet.counter.tcp.TcpDirectSender;
+import com.hyfly.milet.counter.util.Uuid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
-
 
 
 @Log4j2
@@ -39,9 +41,9 @@ public class GatewayConn {
         msg.setChecksum(config.getCs().getChecksum(data));
         msg.setMsgSrc(config.getId());
         msg.setMsgDst(config.getGatewayId());
-        msg.setMsgType(COUNTER_NEW_ORDER);
-        msg.setStatus(NORMAL);
-        msg.setMsgNo(GudyUuid.getInstance().getUUID());
+        msg.setMsgType(MsgConstants.COUNTER_NEW_ORDER);
+        msg.setStatus(MsgConstants.NORMAL);
+        msg.setMsgNo(Uuid.getInstance().getUUID());
         msg.setBody(data);
         directSender.send(config.getMsgCodec().encodeToBuffer(msg));
     }

@@ -1,5 +1,8 @@
 package com.hyfly.milet.counter.config;
 
+import com.hyfly.milet.counter.checksum.ICheckSum;
+import com.hyfly.milet.counter.codec.IBodyCodec;
+import com.hyfly.milet.counter.codec.IMsgCodec;
 import io.vertx.core.Vertx;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -75,7 +78,6 @@ public class CounterConfig {
     private void init() {
         Class<?> clz;
 
-
         try {
             clz = Class.forName(checkSumClass);
 //            clz.newInstance();
@@ -93,8 +95,7 @@ public class CounterConfig {
 
 
         //初始化总线连接
-        new MqttBusConsumer(subBusIp, subBusPort,
-                String.valueOf(id), msgCodec, cs, vertx).startup();
+//        new MqttBusConsumer(subBusIp, subBusPort, String.valueOf(id), msgCodec, cs, vertx).startup();
 
     }
 }
