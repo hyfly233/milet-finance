@@ -2,7 +2,7 @@ package com.hyfly.milet.counter.advice;
 
 
 import com.hyfly.milet.counter.module.res.CounterRes;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 @ResponseBody
-@Log4j2
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public CounterRes exceptionHandler(HttpServletRequest request, Exception e) {
-        log.error(e);
+        log.error(e.getMessage());
         return new CounterRes(CounterRes.FAIL, "发生错误", null);
     }
 

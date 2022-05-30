@@ -8,9 +8,7 @@ import io.vertx.core.net.NetSocket;
 import io.vertx.core.parsetools.RecordParser;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
-import thirdpart.bean.CommonMsg;
 
 @Slf4j
 @RequiredArgsConstructor

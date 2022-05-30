@@ -5,7 +5,8 @@ import com.hyfly.milet.counter.codec.IBodyCodec;
 import com.hyfly.milet.counter.codec.IMsgCodec;
 import io.vertx.core.Vertx;
 import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import javax.annotation.PostConstruct;
 
 @Getter
 @Component
-@Log4j2
+@Slf4j
 public class CounterConfig {
 
     /////////////////////会员号////////////////////////////////
@@ -29,8 +30,8 @@ public class CounterConfig {
 /////////////////////////////////////////////////////
 
     /////////////////////websocket配置////////////////////////////////
-    @Value("${counter.pubport}")
-    private int pubPort;
+//    @Value("${counter.pubport}")
+//    private int pubPort;
 
     ///////////////////总线配置//////////////////////
 
@@ -80,7 +81,6 @@ public class CounterConfig {
 
         try {
             clz = Class.forName(checkSumClass);
-//            clz.newInstance();
             cs = (ICheckSum) clz.getDeclaredConstructor().newInstance();
 
             clz = Class.forName(bodyCodecClass);

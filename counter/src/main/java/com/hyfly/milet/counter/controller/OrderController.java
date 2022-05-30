@@ -7,7 +7,7 @@ import com.hyfly.milet.counter.module.info.StockInfo;
 import com.hyfly.milet.counter.module.info.TradeInfo;
 import com.hyfly.milet.counter.module.res.CounterRes;
 import com.hyfly.milet.counter.service.OrderService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Log4j2
+@Slf4j
 public class OrderController {
 
     @Autowired
@@ -77,9 +77,9 @@ public class OrderController {
     ) {
         if (orderService.sendOrder(uid, type, timestamp, code, direction, price,
                 volume, ordertype)) {
-            return new CounterRes(SUCCESS, "save success", null);
+            return new CounterRes(CounterRes.SUCCESS, "save success", null);
         } else {
-            return new CounterRes(FAIL, "save failed", null);
+            return new CounterRes(CounterRes.FAIL, "save failed", null);
         }
 
     }
@@ -90,9 +90,9 @@ public class OrderController {
                                   @RequestParam int code) {
 
         if (orderService.cancelOrder(uid, counteroid, code)) {
-            return new CounterRes(SUCCESS, "success", null);
+            return new CounterRes(CounterRes.SUCCESS, "success", null);
         } else {
-            return new CounterRes(FAIL, "failed", null);
+            return new CounterRes(CounterRes.FAIL, "failed", null);
         }
     }
 

@@ -5,10 +5,10 @@
     <id>23301</id>
 
     <!-- 外网端口 -->
-    <recvPort>23301</recvPort>
+    <recvport>23301</recvport>
 
     <!-- 排队机抓取服务端口 -->
-    <!--    <fetchServPort>23300</fetchServPort>-->
+    <fetchservport>23300</fetchservport>
 
     <!-- 柜台连接 -->
     <!--    <counterList>-->

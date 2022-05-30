@@ -7,13 +7,13 @@ import io.vertx.core.buffer.Buffer;
 import io.vertx.core.net.NetSocket;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
-@Log4j2
+@Slf4j
 @RequiredArgsConstructor
 public class TcpDirectSender {
 
@@ -35,9 +35,7 @@ public class TcpDirectSender {
             while (true) {
                 try {
                     Buffer msgBuffer = sendCache.poll(5, TimeUnit.SECONDS);
-                    if (msgBuffer != null
-                            && msgBuffer.length() > 0
-                            && socket != null) {
+                    if (msgBuffer != null && msgBuffer.length() > 0 && socket != null) {
                         socket.write(msgBuffer);
                     }
 
@@ -60,10 +58,9 @@ public class TcpDirectSender {
     private class ClientConnHandler implements Handler<AsyncResult<NetSocket>> {
 
         private void reconnect() {
-            vertx.setTimer(1000 * 5, r -> {
+            vertx.setTimer(5000, r -> {
                 log.info("try reconnect to server to {}:{} failed", ip, port);
-                vertx.createNetClient()
-                        .connect(port, ip, new ClientConnHandler());
+                vertx.createNetClient().connect(port, ip, new ClientConnHandler());
             });
         }
 
@@ -86,7 +83,6 @@ public class TcpDirectSender {
             } else {
 
             }
-
         }
     }
 

@@ -8,7 +8,7 @@ import com.hyfly.milet.counter.module.res.CounterRes;
 import com.hyfly.milet.counter.service.AccountService;
 import com.hyfly.milet.counter.util.Captcha;
 import com.hyfly.milet.counter.util.Uuid;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/login")
-@Log4j2
+@Slf4j
 public class LoginController {
     @Autowired
     private AccountService accountService;

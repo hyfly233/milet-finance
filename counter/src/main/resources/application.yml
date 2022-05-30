@@ -19,6 +19,11 @@ cacheexpire:
   order: 36000
 
 counter:
-  id: 0
+  id: 23330
   dataCenterId: 0
   workerId: 0
+  checksum: com.hyfly.milet.counter.checksum.ByteCheckSum
+  bodycodec: com.hyfly.milet.counter.codec.BodyCodec
+  sendip: 127.0.0.1
+  sendpoit: 23301
+  gatewayid: 23301

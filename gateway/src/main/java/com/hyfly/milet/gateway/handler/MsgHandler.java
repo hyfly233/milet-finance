@@ -19,8 +19,8 @@ public class MsgHandler implements IMsgHandler {
 
         try {
             orderCmd = bodyCodec.deserialize(msg.getBody(), OrderCmd.class);
-            if(log.isDebugEnabled()){
-                log.debug("recv cmd: {}",orderCmd);
+            if (log.isDebugEnabled()) {
+                log.debug("recv cmd: {}", orderCmd);
             }
 
             if (!OrderCmdContainer.getInstance().cache(orderCmd)) {
