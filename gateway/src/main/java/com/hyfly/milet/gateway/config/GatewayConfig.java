@@ -5,6 +5,8 @@ import com.alipay.sofa.rpc.config.ServerConfig;
 import com.hyfly.milet.gateway.checksum.ICheckSum;
 import com.hyfly.milet.gateway.codec.IBodyCodec;
 import com.hyfly.milet.gateway.handler.ConnHandler;
+import com.hyfly.milet.gateway.module.OrderCmdContainer;
+import com.hyfly.milet.gateway.service.IFetchService;
 import io.vertx.core.Vertx;
 import io.vertx.core.net.NetServer;
 import lombok.Getter;
@@ -64,26 +66,26 @@ public class GatewayConfig {
         initRecv();
 
         //2.排队机交互
-//        initFetchServ();
+        initFetchServ();
 
     }
 
 
-//    private void initFetchServ() {
-//        ServerConfig rpcConfig = new ServerConfig()
-//                .setPort(fetchServPort)
-//                .setProtocol("bolt");
-//
-//        //implement IFetchService
-//        ProviderConfig<IFetchService> providerConfig = new ProviderConfig<IFetchService>()
-//                .setInterfaceId(IFetchService.class.getName())
-//                .setRef(() -> OrderCmdContainer.getInstance().getAll())
-//                .setServer(rpcConfig);
-//        providerConfig.export();
-//
-//        log.info("gateway startup fetchServ success at port : {}", fetchServPort);
-//
-//    }
+    private void initFetchServ() {
+        ServerConfig rpcConfig = new ServerConfig()
+                .setPort(fetchServPort)
+                .setProtocol("bolt");
+
+        //implement IFetchService
+        ProviderConfig<IFetchService> providerConfig = new ProviderConfig<IFetchService>()
+                .setInterfaceId(IFetchService.class.getName())
+                .setRef(() -> OrderCmdContainer.getInstance().getAll())
+                .setServer(rpcConfig);
+        providerConfig.export();
+
+        log.info("gateway startup fetchServ success at port : {}", fetchServPort);
+
+    }
 
     private void initRecv() {
         NetServer server = vertx.createNetServer();

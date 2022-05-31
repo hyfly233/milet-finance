@@ -8,7 +8,7 @@
     <recvport>23301</recvport>
 
     <!-- 排队机抓取服务端口 -->
-    <fetchservport>23300</fetchservport>
+    <fetchservport>23303</fetchservport>
 
     <!-- 柜台连接 -->
     <!--    <counterList>-->
