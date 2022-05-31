@@ -1,6 +1,6 @@
 package com.hyfly.milet.engine.codec;
 
-import com.hyfly.milet.seq.module.CommonMsg;
+import com.hyfly.milet.engine.module.CommonMsg;
 import io.vertx.core.buffer.Buffer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

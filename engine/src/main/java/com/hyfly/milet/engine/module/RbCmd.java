@@ -1,6 +1,5 @@
 package com.hyfly.milet.engine.module;
 
-import com.gudy.engine.bean.orderbook.MatchEvent;
 import com.hyfly.milet.engine.enums.CmdType;
 import com.hyfly.milet.engine.enums.OrderDirection;
 import com.hyfly.milet.engine.enums.OrderType;
@@ -8,7 +7,6 @@ import com.hyfly.milet.engine.module.orderbook.MatchEvent;
 import lombok.Builder;
 import lombok.ToString;
 import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
-import thirdpart.hq.L1MarketData;
 
 import java.util.List;
 

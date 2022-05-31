@@ -1,6 +1,6 @@
 package com.hyfly.milet.engine.codec;
 
-import com.hyfly.milet.seq.module.CommonMsg;
+import com.hyfly.milet.engine.module.CommonMsg;
 import io.vertx.core.buffer.Buffer;
 
 public interface IMsgCodec {

@@ -1,6 +1,5 @@
 package com.hyfly.milet.engine.core;
 
-import com.hyfly.milet.engine.enums.CmdType;
 import com.hyfly.milet.engine.module.CmdResultCode;
 import com.hyfly.milet.engine.module.RbCmd;
 import com.hyfly.milet.engine.module.res.OrderCmd;
@@ -8,6 +7,8 @@ import com.lmax.disruptor.EventTranslatorOneArg;
 import com.lmax.disruptor.RingBuffer;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import static com.hyfly.milet.engine.enums.CmdType.*;
 
 
 @Log4j2
@@ -19,13 +20,13 @@ public class EngineApi {
 
     public void submitCommand(OrderCmd cmd) {
         switch (cmd.type) {
-            case CmdType.HQ_PUB:
+            case HQ_PUB:
                 ringBuffer.publishEvent(HQ_PUB_TRANSLATOR, cmd);
                 break;
-            case CmdType.NEW_ORDER:
+            case NEW_ORDER:
                 ringBuffer.publishEvent(NEW_ORDER_TRANSLATOR, cmd);
                 break;
-            case CmdType.CANCEL_ORDER:
+            case CANCEL_ORDER:
                 ringBuffer.publishEvent(CANCEL_ORDER_TRANSLATOR, cmd);
                 break;
             default:
@@ -38,7 +39,7 @@ public class EngineApi {
      * 委托trans
      */
     private static final EventTranslatorOneArg<RbCmd, OrderCmd> NEW_ORDER_TRANSLATOR = (rbCmd, seq, newOrder) -> {
-        rbCmd.command = CmdType.NEW_ORDER;
+        rbCmd.command = NEW_ORDER;
         rbCmd.timestamp = newOrder.timestamp;
         rbCmd.mid = newOrder.mid;
         rbCmd.uid = newOrder.uid;
@@ -55,7 +56,7 @@ public class EngineApi {
      * 撤单trans
      */
     private static final EventTranslatorOneArg<RbCmd, OrderCmd> CANCEL_ORDER_TRANSLATOR = (rbCmd, seq, cancelOrder) -> {
-        rbCmd.command = CmdType.CANCEL_ORDER;
+        rbCmd.command = CANCEL_ORDER;
         rbCmd.timestamp = cancelOrder.timestamp;
         rbCmd.mid = cancelOrder.mid;
         rbCmd.uid = cancelOrder.uid;
@@ -68,7 +69,7 @@ public class EngineApi {
      * 行情发送
      */
     private static final EventTranslatorOneArg<RbCmd, OrderCmd> HQ_PUB_TRANSLATOR = (rbCmd, seq, hqPub) -> {
-        rbCmd.command = CmdType.HQ_PUB;
+        rbCmd.command = HQ_PUB;
         rbCmd.resultCode = CmdResultCode.SUCCESS;
     };
 }

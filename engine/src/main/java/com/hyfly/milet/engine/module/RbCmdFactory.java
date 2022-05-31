@@ -2,7 +2,8 @@ package com.hyfly.milet.engine.module;
 
 import com.google.common.collect.Lists;
 import com.lmax.disruptor.EventFactory;
-import io.netty.util.collection.IntObjectHashMap;
+import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
+
 
 public class RbCmdFactory implements EventFactory<RbCmd> {
     @Override

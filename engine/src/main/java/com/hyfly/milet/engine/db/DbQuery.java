@@ -1,5 +1,6 @@
 package com.hyfly.milet.engine.db;
 
+import com.hyfly.milet.engine.module.MsgConstants;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
@@ -36,7 +37,7 @@ public class DbQuery {
         for (Map<String, Object> map : listmap) {
             uidBalanceMap.put(
                     Long.parseLong(map.get("uid").toString()),
-                    Long.parseLong(map.get("balance").toString()) * MULTI_FACTOR
+                    Long.parseLong(map.get("balance").toString()) * MsgConstants.MULTI_FACTOR
             );
         }
         return uidBalanceMap;

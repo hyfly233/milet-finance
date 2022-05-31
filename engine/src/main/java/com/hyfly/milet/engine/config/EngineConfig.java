@@ -1,6 +1,5 @@
 package com.hyfly.milet.engine.config;
 
-import com.alipay.remoting.exception.CodecException;
 import com.alipay.sofa.jraft.rhea.client.DefaultRheaKVStore;
 import com.alipay.sofa.jraft.rhea.client.RheaKVStore;
 import com.alipay.sofa.jraft.rhea.options.PlacementDriverOptions;
@@ -28,8 +27,8 @@ import com.hyfly.milet.engine.module.MatchData;
 import com.hyfly.milet.engine.module.orderbook.GOrderBookImpl;
 import com.hyfly.milet.engine.module.orderbook.IOrderBook;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import io.netty.util.collection.IntObjectHashMap;
-import io.netty.util.collection.ShortObjectHashMap;
+
+
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.datagram.DatagramSocket;
@@ -40,7 +39,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.dbutils.QueryRunner;
-
+import org.eclipse.collections.impl.map.mutable.primitive.IntObjectHashMap;
+import org.eclipse.collections.impl.map.mutable.primitive.ShortObjectHashMap;
 
 import java.net.Inet4Address;
 import java.net.NetworkInterface;
@@ -194,7 +194,7 @@ public class EngineConfig {
                         try {
                             CmdPack cmdPack = bodyCodec.deserialize(udpData.getBytes(), CmdPack.class);
                             CmdPacketQueue.getInstance().cache(cmdPack);
-                        } catch (CodecException e) {
+                        } catch (Exception e) {
                             log.error("decode packet error", e);
                         }
                     } else {
