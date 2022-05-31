@@ -83,6 +83,12 @@
 
         <dependency>
             <groupId>io.vertx</groupId>
+            <artifactId>vertx-mqtt</artifactId>
+            <version>4.2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.vertx</groupId>
             <artifactId>vertx-bridge-common</artifactId>
             <version>4.2.6</version>
         </dependency>
